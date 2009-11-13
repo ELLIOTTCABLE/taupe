@@ -7,7 +7,7 @@ When you visit
 taupe becomes aware of the location of the Twitter status with an ID of
 ‘5680923477.’ Subsequent visits to <http://tau.pe/5680923477> will redirect
 with an HTTP status code of 301 (“permanent redirect”) to
-http://twitter.com/elliottcable/status/5680923477>.
+<http://twitter.com/elliottcable/status/5680923477>.
 
 taupe is backed by [Node.js][] and [Redis][]. I wrote it at [Village Inn][].
 Well, mostly… my battery died. It took about twenty songs on [Grooveshark][] to
