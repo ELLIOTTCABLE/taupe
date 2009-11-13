@@ -2,10 +2,6 @@ var http = require("http"),
      sys = require("sys"),
    redis = require("/Users/elliottcable/Code/src/redis-node-client/redis");
 
-// Can we get this out of the server at runtime somehow?
-var ourHost = "127.0.0.1",
-    ourPort = 8000;
-
 // redis-node-client *really* needs to be re-implemented with `process.Promise`s <_<
 redis.create_client(function (redis) {
   redis.select(9, function(){});
@@ -28,9 +24,9 @@ redis.create_client(function (redis) {
                 id = bits[3];
           
           redis.set(id, username, function (result) {
-            serverResponse.sendHeader(301, {"Content-Type": "text/plain",
-              "Location": "http://"+ourHost+":"+ourPort+"/"+id+"?"});
-            serverResponse.sendBody("Tweet exists! Redirecting... ("+username+"@"+id+")\n");
+            serverResponse.sendHeader(200, {"Content-Type": "text/plain",
+              "Location": "http://"+serverRequest.headers.host+"/"+id});
+            serverResponse.sendBody("http://"+serverRequest.headers.host+"/"+id+"\n");
             serverResponse.finish();
           });
         } else {
@@ -49,9 +45,5 @@ redis.create_client(function (redis) {
         serverResponse.finish();
       });
     };
-  }).listen(ourPort, ourHost);
-  
-  sys.puts("Server running at http://127.0.0.1:8000/");
-
-  
+  }).listen(8000);
 });
