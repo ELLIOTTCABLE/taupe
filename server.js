@@ -39,9 +39,12 @@ redis.create_client(function (redis) {
       var id = serverRequest.uri.path.slice(1);
       
       redis.get(id, function (username) {
-        serverResponse.sendHeader(301, {"Content-Type": "text/plain",
+        if (serverRequest.uri.full.indexOf("?") !== -1) {
+          var status = 200 } else { var status = 301 };
+        
+        serverResponse.sendHeader(status, {"Content-Type": "text/plain",
           "Location": "http://"+twitterHost+"/"+username+"/status/"+id});
-        serverResponse.sendBody("Tweet exists! Redirecting... ("+username+"@"+id+")\n");
+        serverResponse.sendBody("http://"+twitterHost+"/"+username+"/status/"+id+"\n");
         serverResponse.finish();
       });
     };
