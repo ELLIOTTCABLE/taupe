@@ -15,10 +15,10 @@ write.
 
 But yeah, it’s a pretty cool guy.
 
-  [Twitter]: <http://twitter.com/>
+  [Twitter]: http://twitter.com/
     "Do I seriously need to have an explanatory title for Twitter? Come on."
-  [Node.js]: <http://nodejs.org/> "JavaScript. On your server. Bein’ awesome."
-  [Redis]: <http://code.google.com/p/redis/>
-    "Redis, the coolest key-value store EVAR!"
-  [Village Inn]: <http://villageinn.com/> "Local 24-hour diner of yum."
-  [Grooveshark]: <http://grooveshark.com/> "Music."
+  [Node.js]: http://nodejs.org/ "JavaScript. On your server. Bein’ awesome."
+  [Redis]: http://code.google.com/p/redis/
+  "Redis, the coolest key-value store EVAR!"
+  [Village Inn]: http://villageinn.com/ "Local 24-hour diner of yum."
+  [Grooveshark]: http://grooveshark.com/ "Music."
