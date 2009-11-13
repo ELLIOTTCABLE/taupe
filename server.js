@@ -1,6 +1,6 @@
 var http = require("http"),
      sys = require("sys"),
-   redis = require("/Users/elliottcable/Code/src/redis-node-client/redis");
+   redis = require("redis");
 
 // redis-node-client *really* needs to be re-implemented with `process.Promise`s <_<
 redis.create_client(function (redis) {
