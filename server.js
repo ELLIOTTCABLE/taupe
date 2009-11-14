@@ -39,13 +39,19 @@ redis.create_client(function (redis) {
       var id = serverRequest.uri.path.slice(1);
       
       redis.get(id, function (username) {
-        if (serverRequest.uri.full.indexOf("?") !== -1) {
-          var status = 200 } else { var status = 301 };
-        
-        serverResponse.sendHeader(status, {"Content-Type": "text/plain",
-          "Location": "http://"+twitterHost+"/"+username+"/status/"+id});
-        serverResponse.sendBody("http://"+twitterHost+"/"+username+"/status/"+id+"\n");
-        serverResponse.finish();
+        if (username !== null) {
+          if (serverRequest.uri.full.indexOf("?") !== -1) {
+            var status = 200 } else { var status = 301 };
+          
+          serverResponse.sendHeader(status, {"Content-Type": "text/plain",
+            "Location": "http://"+twitterHost+"/"+username+"/status/"+id});
+          serverResponse.sendBody("http://"+twitterHost+"/"+username+"/status/"+id+"\n");
+          serverResponse.finish();
+        } else {
+          serverResponse.sendHeader(404, {"Content-Type": "text/plain"});
+          serverResponse.sendBody("ID not stored!\n");
+          serverResponse.finish();
+        };
       });
     };
   }).listen(49905);
