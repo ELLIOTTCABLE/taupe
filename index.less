@@ -1,0 +1,85 @@
+.sans-serif { font-family: Helvetica, sans-serif; }
+.serif { font-family: Georgia, serif; }
+.monospace { font-family: Menlo, monospace; }
+
+.defaults {
+  @lightest:     #FCD4AE;
+  @lighter:      #E0BC9B;
+  @light:        #C4A487;
+  @medium-light: #A88C74;
+  @medium:       #8C7561;
+  @medium-dark:  #705E4D;
+  @dark:         #54463A;
+  @darker:       #382E26;
+  @darkest:      #1C1713;
+  
+  width: 25em;
+  
+  .type {
+    color: .defaults[@darker];
+    
+    .serif;
+    font-size: 16px;
+    font-width: 300;
+    -webkit-text-stroke:1px transparent; // Be thin, you!
+    line-height: 1.5;
+    
+    text-align: left;
+  }
+}
+
+
+#center-me {
+  height: 100%;
+  display: table !important;
+  margin: auto;
+  
+  > * {
+    display: table-cell !important;
+    vertical-align: middle !important;
+  }
+}
+
+.full { height: 100% }
+html {
+  .full;
+  .defaults > .type;
+  
+  background: .defaults[@lightest];
+}
+body {
+  .full;
+  #center-me;
+  
+  > * {
+    margin-left: auto;
+    > * { width: .defaults['width'] }
+  }
+}
+
+header {
+  h1, h2, h3, h4, h5, h6 {
+    padding: 0px;
+    margin: 0px;
+    .sans-serif;
+    line-height: 1.0;
+  }
+  
+  h1 { font-size: 26pt }
+}
+
+a.self-referencing {
+  .monospace;
+  text-decoration: none;
+  
+  :visited {}
+  
+  :before, :after { color: .defaults[@lighter]; }
+  :hover { :before, :after { color: .defaults[@darkest] } }
+  :before { content: '‹'; }
+  :after { content: '›'; }
+}
+
+#examples {
+  text-align: right;
+}
