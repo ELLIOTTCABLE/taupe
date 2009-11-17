@@ -26,14 +26,17 @@ redis.create_client(function (redis) {
                 id = bits[3];
           
           redis.set(id, username, function (result) {
+            var response = "http://"+serverRequest.headers.host+"/"+id;
             serverResponse.sendHeader(200, {"Content-Type": "text/plain",
-              "Location": "http://"+serverRequest.headers.host+"/"+id});
-            serverResponse.sendBody("http://"+serverRequest.headers.host+"/"+id+"\n");
+              "Location": response, "Content-Length": (response+"\n").length});
+            serverResponse.sendBody(response+"\n");
             serverResponse.finish();
           });
         } else {
-          serverResponse.sendHeader(404, {"Content-Type": "text/plain"});
-          serverResponse.sendBody("Tweet not found!\n");
+          var response = "Tweet not found!";
+          serverResponse.sendHeader(404, {"Content-Type": "text/plain",
+            "Content-Length": (response+"\n").length});
+          serverResponse.sendBody(response+"\n");
           serverResponse.finish();
         };
       });
@@ -45,13 +48,16 @@ redis.create_client(function (redis) {
           if (serverRequest.uri.full.indexOf("?") !== -1) {
             var status = 200 } else { var status = 301 };
           
+          var response = "http://"+twitterHost+"/"+username+"/status/"+id;
           serverResponse.sendHeader(status, {"Content-Type": "text/plain",
-            "Location": "http://"+twitterHost+"/"+username+"/status/"+id});
-          serverResponse.sendBody("http://"+twitterHost+"/"+username+"/status/"+id+"\n");
+            "Location": response, "Content-Length": (response+"\n").length});
+          serverResponse.sendBody(response+"\n");
           serverResponse.finish();
         } else {
-          serverResponse.sendHeader(404, {"Content-Type": "text/plain"});
-          serverResponse.sendBody("ID not stored!\n");
+          var response = "ID not stored!";
+          serverResponse.sendHeader(404, {"Content-Type": "text/plain",
+            "Content-Length": (response+"\n").length});
+          serverResponse.sendBody(response+"\n");
           serverResponse.finish();
         };
       });
