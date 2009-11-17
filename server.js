@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var http = require("http"),
      sys = require("sys"),
    redis = require("redis");
