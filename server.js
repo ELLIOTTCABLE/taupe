@@ -54,5 +54,5 @@ redis.create_client(function (redis) {
         };
       });
     };
-  }).listen(49905);
+  }).listen(process.ARGV[2]);
 });
