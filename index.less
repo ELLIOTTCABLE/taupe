@@ -14,18 +14,20 @@
   @darkest:      #1C1713;
   
   width: 25em;
+}
+
+.type {
+  color: .defaults[@darker];
   
-  .type {
-    color: .defaults[@darker];
-    
-    .serif;
-    font-size: 16px;
-    font-width: 300;
-    -webkit-text-stroke:1px transparent; // Be thin, you!
-    line-height: 1.5;
-    
-    text-align: left;
-  }
+  .serif;
+  font-size: 15px;
+  font-width: 300;
+  line-height: 1.6;
+  
+  @line-height: .type['font-size'] * .type['line-height'];
+  @leading: @line-height - .type['font-size'];
+  
+  text-align: left;
 }
 
 
@@ -43,7 +45,7 @@
 .full { height: 100% }
 html {
   .full;
-  .defaults > .type;
+  .type;
   
   background: .defaults[@lightest];
 }
@@ -62,10 +64,11 @@ header {
     padding: 0px;
     margin: 0px;
     .sans-serif;
+    -webkit-text-stroke:1px transparent; // Be thin, you!
     line-height: 1.0;
   }
   
-  h1 { font-size: 26pt }
+  h1 { font-size: .type[@line-height] * 2; }
 }
 
 a.self-referencing {
