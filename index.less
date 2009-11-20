@@ -14,25 +14,30 @@
   @darkest:      #1C1713;
   
   width: 25em;
+  background: .defaults[@lightest];
+  
+  color: .defaults[@dark];
 }
 
 .type {
-  color: .defaults[@darker];
+  color: .defaults['color'];
+  
+  font-size: 16.0px;
+  font-width: 300;
+  line-height: 1.60;
   
   .serif;
-  font-size: 15px;
-  font-width: 300;
-  line-height: 1.6;
   
-  @line-height: .type['font-size'] * .type['line-height'];
-  @leading: @line-height - .type['font-size'];
-  
-  text-align: left;
+  @full-line-height: .type['font-size'] * .type['line-height'];
 }
 
+.spacing {
+  margin-bottom: .type[@full-line-height] / 2;
+}
 
 #center-me {
   height: 100%;
+  width: .defaults['width'];
   display: table !important;
   margin: auto;
   
@@ -43,46 +48,81 @@
 }
 
 .full { height: 100% }
-html {
+html, body {
   .full;
+  background: .defaults['background'];
+  
   .type;
-  
-  background: .defaults[@lightest];
 }
-body {
-  .full;
-  #center-me;
+body { #center-me; }
+
+section {
+  margin-bottom: .spacing['margin-bottom'];
   
-  > * {
-    margin-left: auto;
-    > * { width: .defaults['width'] }
+  p:first-child:before {
+    content: '\00A7';
+  }
+  
+  :hover p:first-child:before {
+    color: .defaults[@medium];
+  }
+}
+p {
+  margin-bottom: .spacing['margin-bottom'] / 3;
+  
+  :before {
+    padding-right: 0.25em;
+    margin-left: -1em;
+    
+    color: .defaults[@lighter];
+    content: '\00B6';
+  }
+  
+  :hover:before {
+    color: .defaults[@medium];
   }
 }
 
-header {
-  h1, h2, h3, h4, h5, h6 {
-    padding: 0px;
-    margin: 0px;
-    .sans-serif;
-    -webkit-text-stroke:1px transparent; // Be thin, you!
-    line-height: 1.0;
-  }
-  
-  h1 { font-size: .type[@line-height] * 2; }
+a {
+	text-decoration: none;
+	color: .defaults[@medium];
+	
+	:visited { color: .defaults['color']; }
 }
 
 a.self-referencing {
   .monospace;
-  text-decoration: none;
-  
-  :visited {}
   
   :before, :after { color: .defaults[@lighter]; }
   :hover { :before, :after { color: .defaults[@darkest] } }
-  :before { content: '‹'; }
-  :after { content: '›'; }
+  :before { content: '‹'; } :after { content: '›'; }
 }
 
-#examples {
-  text-align: right;
+#title {
+  @font-size-adjustment: 2.0;
+  
+  line-height: 1.00;
+  font-size: .type[@full-line-height] * #title[@font-size-adjustment];
+  font-family: 'Baskerville', serif;
+  
+  margin-left: -1em; padding-left: 1em;
+  margin-right: -1em; padding-right: 1em;
+  border-bottom-style: solid;
+  border-bottom-color: .defaults[@lighter];
+  border-bottom-width: 3px;
+
+  @margin-bottom: .spacing['margin-bottom'] * 2;
+  padding-bottom: @margin-bottom * 0.3;
+  margin-bottom: (@margin-bottom * 0.7) - #title['border-bottom-width'];
+  
+  > * { display: inline; font-weight: inherit; }
+}
+
+.pronunciation {
+  font-size: .type['font-size'] * #title[@font-size-adjustment];
+  /* Why doesn’t this work? */
+  /*font-family: 'Hiragino Mincho Pro', .serif['font-family'];*/
+  font-family: 'Hiragino Mincho Pro', serif;
+  
+  :before, :after { content: "|" }
 }
