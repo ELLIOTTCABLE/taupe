@@ -1,17 +1,128 @@
+.sans-serif { font-family: Helvetica, sans-serif; }
+.serif { font-family: Georgia, serif; }
+.monospace { font-family: Menlo, monospace; }
+
+.defaults {
+  @lightest:     #FCD4AE;
+  @lighter:      #E0BC9B;
+  @light:        #C4A487;
+  @medium-light: #A88C74;
+  @medium:       #8C7561;
+  @medium-dark:  #705E4D;
+  @dark:         #54463A;
+  @darker:       #382E26;
+  @darkest:      #1C1713;
+  
+  width: 25em;
+  background: .defaults[@lightest];
+  
+  color: .defaults[@dark];
+}
+
 .type {
-  font-size: 15px;
+  color: .defaults['color'];
+  
+  font-size: 16.0px;
   font-width: 300;
-  line-height: 1.6;
+  line-height: 1.60;
+  
+  .serif;
   
   @full-line-height: .type['font-size'] * .type['line-height'];
 }
 
+.spacing {
+  margin-bottom: .type[@full-line-height] / 2;
+}
+
+#center-me {
+  height: 100%;
+  width: .defaults['width'];
+  display: table !important;
+  margin: auto;
+  
+  > * {
+    display: table-cell !important;
+    vertical-align: middle !important;
+  }
+}
+
+.full { height: 100% }
 html, body {
+  .full;
+  background: .defaults['background'];
+  
   .type;
 }
+body { #center-me; }
 
-.title {
-  font-size: 
+section {
+  margin-bottom: .spacing['margin-bottom'];
+  
+  p:first-child:before {
+    content: '\00A7';
+  }
+  
+  :hover p:first-child:before {
+    color: .defaults[@medium];
+  }
+}
+p {
+  margin-bottom: .spacing['margin-bottom'] / 3;
+  
+  :before {
+    padding-right: 0.25em;
+    margin-left: -1em;
+    
+    color: .defaults[@lighter];
+    content: '\00B6';
+  }
+  
+  :hover:before {
+    color: .defaults[@medium];
+  }
 }
 
-dl dt { .title; }
+a {
+	text-decoration: none;
+	color: .defaults[@medium];
+	
+	:visited { color: .defaults['color']; }
+}
+
+a.self-referencing {
+  .monospace;
+  
+  :before, :after { color: .defaults[@lighter]; }
+  :hover { :before, :after { color: .defaults[@darkest] } }
+  :before { content: '‹'; } :after { content: '›'; }
+}
+
+#title {
+  @font-size-adjustment: 2.0;
+  
+  line-height: 1.00;
+  font-size: .type[@full-line-height] * #title[@font-size-adjustment];
+  font-family: 'Baskerville', serif;
+  
+  margin-left: -1em; padding-left: 1em;
+  margin-right: -1em; padding-right: 1em;
+  border-bottom-style: solid;
+  border-bottom-color: .defaults[@lighter];
+  border-bottom-width: 3px;
+
+  @margin-bottom: .spacing['margin-bottom'] * 2;
+  padding-bottom: @margin-bottom * 0.3;
+  margin-bottom: (@margin-bottom * 0.7) - #title['border-bottom-width'];
+  
+  > * { display: inline; font-weight: inherit; }
+}
+
+.pronunciation {
+  font-size: .type['font-size'] * #title[@font-size-adjustment];
+  /* Why doesn’t this work? */
+  /*font-family: 'Hiragino Mincho Pro', .serif['font-family'];*/
+  font-family: 'Hiragino Mincho Pro', serif;
+  
+  :before, :after { content: "|" }
+}
