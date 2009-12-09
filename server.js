@@ -25,8 +25,9 @@ redis.create_client(function (redis) {
           username = bits[1],
                 id = bits[3];
           
-          process.stdio.write("Registering " + id + '\n');
           redis.set(id, username, function (result) {
+            process.stdio.write("↪ "+id + '\n');
+            
             var response = "http://"+serverRequest.headers.host+"/"+id;
             serverResponse.sendHeader(200, {"Content-Type": "text/plain",
               "Location": response, "Content-Length": (response+"\n").length});
@@ -42,14 +43,15 @@ redis.create_client(function (redis) {
         };
       });
     } else {
-      var id = serverRequest.uri.path.slice(1);
-      if (id.slice(0, 2) === '0z') {
-        id = parseInt(id.slice(2, id.length), 36).toString(10) }
+      var id, rawId = serverRequest.uri.path.slice(1);
+      if (rawId.slice(0, 2) === '0z') {
+        id = parseInt(rawId.slice(2, rawId.length), 36).toString(10) }
       else {
-        id = parseInt(id, null).toString(10) };
+        id = parseInt(rawId, null).toString(10) };
       
-      process.stdio.write("Looking up " + id + '\n');
       redis.get(id, function (username) {
+        process.stdio.write(rawId+"("+id+")"+" → "+username + '\n');
+        
         if (username !== null) {
           if (serverRequest.uri.full.indexOf("?") !== -1) {
             var status = 200 } else { var status = 301 };
