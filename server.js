@@ -25,6 +25,7 @@ redis.create_client(function (redis) {
           username = bits[1],
                 id = bits[3];
           
+          process.stdio.write("Registering " + id + '\n');
           redis.set(id, username, function (result) {
             var response = "http://"+serverRequest.headers.host+"/"+id;
             serverResponse.sendHeader(200, {"Content-Type": "text/plain",
@@ -45,6 +46,7 @@ redis.create_client(function (redis) {
           id = parseInt(id.slice(2, id.length),
             id.slice(0, 2) === '0z' ? 36 : null).toString(10);
       
+      process.stdio.write("Looking up " + id + '\n');
       redis.get(id, function (username) {
         if (username !== null) {
           if (serverRequest.uri.full.indexOf("?") !== -1) {
