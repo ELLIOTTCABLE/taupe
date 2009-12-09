@@ -60,26 +60,31 @@ section {
   margin-bottom: .spacing['margin-bottom'];
   
   p:first-child:before {
+    visibility: hidden;
+    
     content: '\00A7';
+    color: .defaults[@lighter];
   }
   
   :hover p:first-child:before {
-    color: .defaults[@medium];
+    visibility: visible;
   }
 }
 p {
   margin-bottom: .spacing['margin-bottom'] / 3;
   
   :before {
+    visibility: hidden;
+    
     padding-right: 0.25em;
     margin-left: -1em;
     
-    color: .defaults[@lighter];
     content: '\00B6';
+    color: .defaults[@lighter];
   }
   
   :hover:before {
-    color: .defaults[@medium];
+    visibility: visible;
   }
 }
 
