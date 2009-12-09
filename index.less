@@ -140,3 +140,20 @@ a.self-referencing {
   :hover { :before { color: .defaults[@darkest] } }
   :before { content: '«'; }
 }
+
+#by {
+  @font-size-adjustment: 0.90;
+  
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: .type['font-size'] / 4;
+  
+  font-size: .type['font-size'] * #by[@font-size-adjustment];
+  line-height: 1.0;
+  
+  a:before        { color: .defaults[@lighter]; content: '?'; }
+  a:after         { content: ''; }
+  a:hover:before  { color: .defaults[@darkest]; content: '!'; }
+  a:hover:after   { content: ''; }
+}
