@@ -43,8 +43,10 @@ redis.create_client(function (redis) {
       });
     } else {
       var id = serverRequest.uri.path.slice(1);
-          id = parseInt(id.slice(2, id.length),
-            id.slice(0, 2) === '0z' ? 36 : null).toString(10);
+      if (id.slice(0, 2) === '0z') {
+        id = parseInt(id.slice(2, id.length), 36).toString(10) }
+      else {
+        id = parseInt(id, null).toString(10) };
       
       process.stdio.write("Looking up " + id + '\n');
       redis.get(id, function (username) {
