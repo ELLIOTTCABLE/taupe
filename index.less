@@ -120,9 +120,18 @@ a.self-referencing {
 
 .pronunciation {
   font-size: .type['font-size'] * #title[@font-size-adjustment];
-  /* Why doesn’t this work? */
+  /* FIXME: Why doesn’t this work? */
   /*font-family: 'Hiragino Mincho Pro', .serif['font-family'];*/
   font-family: 'Hiragino Mincho Pro', serif;
   
   :before, :after { content: "|" }
+}
+
+#title > nav {
+  font-size: .type['font-size'];
+  text-align: right;
+  
+  :before { color: .defaults[@lighter]; }
+  :hover { :before { color: .defaults[@darkest] } }
+  :before { content: '«'; }
 }
