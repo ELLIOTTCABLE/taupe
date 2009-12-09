@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 var http = require("http"),
-     sys = require("sys"),
    redis = require("redis");
 
 // redis-node-client *really* needs to be re-implemented with `process.Promise`s <_<
