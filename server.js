@@ -41,7 +41,9 @@ redis.create_client(function (redis) {
         };
       });
     } else {
-      var id = parseInt(serverRequest.uri.path.slice(1)).toString(10);
+      var id = serverRequest.uri.path.slice(1);
+          id = parseInt(id.slice(2, id.length),
+            id.slice(0, 2) === '0z' ? 36 : null).toString(10);
       
       redis.get(id, function (username) {
         if (username !== null) {
