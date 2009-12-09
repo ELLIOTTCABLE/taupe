@@ -59,11 +59,13 @@ body { #center-me; }
 section {
   margin-bottom: .spacing['margin-bottom'];
   
+  :first-line { color: .defaults[@darkest]; }
+  
   p:first-child:before {
     visibility: hidden;
     
     content: '\00A7';
-    color: .defaults[@medium];
+    color: .defaults[@darkest];
   }
   
   :hover p:first-child:before {
