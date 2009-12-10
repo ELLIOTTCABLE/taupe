@@ -28,7 +28,7 @@ redis.create_client(function (redis) {
                 id = bits[2];
           
           redis.set(id, username, function (result) {
-            process.stdio.write("↪ "+id+" by "+username + '\n');
+            process.stdio.write("↪ "+id+" by @"+username + '\n');
             
             var response = "http://"+serverRequest.headers.host+"/"+id;
             serverResponse.sendHeader(200, {"Content-Type": "text/plain",
@@ -52,7 +52,7 @@ redis.create_client(function (redis) {
         id = parseInt(rawId, null).toString(10) };
       
       redis.get(id, function (username) {
-        process.stdio.write(rawId+" ("+id+") → "+username + '\n');
+        process.stdio.write(rawId+" ("+id+") → @"+username + '\n');
         
         if (username !== null) {
           if (serverRequest.uri.full.indexOf("?") !== -1) {
