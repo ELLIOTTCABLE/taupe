@@ -52,7 +52,7 @@ redis.create_client(function (redis) {
         id = parseInt(rawId, null).toString(10) };
       
       redis.get(id, function (username) {
-        process.stdio.write(rawId+"("+id+")"+" → "+username + '\n');
+        process.stdio.write(rawId+" ("+id+") → "+username + '\n');
         
         if (username !== null) {
           if (serverRequest.uri.full.indexOf("?") !== -1) {
