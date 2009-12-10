@@ -8,7 +8,7 @@ redis.create_client(function (redis) {
   redis.select(9, function(){});
   
   var twitterHost = "twitter.com",
-   twitter = http.createClient(80, twitterHost);
+    twitter = http.createClient(80, twitterHost);
   
   http.createServer(function (serverRequest, serverResponse) {
     if (serverRequest.uri.path.slice(1).indexOf("/") !== -1) {
