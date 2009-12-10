@@ -28,7 +28,7 @@ redis.create_client(function (redis) {
                 id = bits[2];
           
           redis.set(id, username, function (result) {
-            process.stdio.write("↪ "+id + '\n');
+            process.stdio.write("↪ "+id+" by "+username + '\n');
             
             var response = "http://"+serverRequest.headers.host+"/"+id;
             serverResponse.sendHeader(200, {"Content-Type": "text/plain",
