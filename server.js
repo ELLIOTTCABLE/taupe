@@ -11,18 +11,21 @@ redis.create_client(function (redis) {
    twitter = http.createClient(80, twitterHost);
   
   http.createServer(function (serverRequest, serverResponse) {
-    var index = serverRequest.uri.path.indexOf("/http://" + twitterHost);
-    if (index !== -1) {
-      var twitterPath = serverRequest.uri.path.slice(index + ("/http://" + twitterHost).length);
+    if (serverRequest.uri.path.slice(1).indexOf("/") !== -1) {
+      var twitterPath = serverRequest.uri.path.slice(1);
+          twitterPath = twitterPath
+            .indexOf("http://"+twitterHost+"/") === -1 ? twitterPath :
+              twitterPath.slice(0, ("http://"+twitterHost+"/").length);
       
-      var clientRequest = twitter.get(twitterPath, {"host": twitterHost});
+      var clientRequest = twitter
+        .get('/' + twitterPath, {"host": twitterHost});
       clientRequest.finish(function (clientResponse) {
         if (clientResponse.statusCode === 200 ||
             clientResponse.statusCode === 403) {
           
           var bits = twitterPath.split('/'),
-          username = bits[1],
-                id = bits[3];
+          username = bits[0],
+                id = bits[2];
           
           redis.set(id, username, function (result) {
             process.stdio.write("↪ "+id + '\n');
