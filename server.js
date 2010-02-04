@@ -12,10 +12,9 @@ redis.create_client(function (redis) {
   
   http.createServer(function (serverRequest, serverResponse) {
     if (serverRequest.uri.path.slice(1).indexOf("/") !== -1) {
-      var twitterPath = serverRequest.uri.path.slice(1);
-          twitterPath = twitterPath
-            .indexOf("http://"+twitterHost+"/") === -1 ? twitterPath :
-              twitterPath.slice(("http://"+twitterHost+"/").length);
+      var result, twitterPath = serverRequest.uri.path.slice(1);
+      if (result = new(RegExp)("^(https?://)"+twitterHost+"/").exec(twitterPath)) {
+        twitterPath = twitterPath.slice(result[0].length) }
       
       var clientRequest = twitter
         .get('/' + twitterPath, {"host": twitterHost});
